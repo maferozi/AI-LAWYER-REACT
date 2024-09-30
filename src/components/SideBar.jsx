@@ -4,9 +4,15 @@ import logoutImg from "../assets/logout.png";
 
 import { Link, NavLink } from "react-router-dom";
 import SimpleBar from "simplebar-react";
+import { useDispatch } from "react-redux";
+import { logout } from "../redux/action/auth.action";
 
 function Sidebar({setShowSideBar ,showSidebar}) {
-
+  const dispatch = useDispatch()
+  
+  function logoutHandler(){
+    dispatch(logout());
+  }
   const sidebarToggler = () => {
     showSidebar? setShowSideBar(false):setShowSideBar(true);
   };
@@ -52,8 +58,8 @@ function Sidebar({setShowSideBar ,showSidebar}) {
         <nav className="sidebar-nav">
           <ul>
             <li className="sidebar-item">
-              <NavLink
-                to={"/login"}
+              <Link
+                onClick={logoutHandler}
                 className="flex flex-col items-center justify-center"
                 aria-expanded="false"
               >
@@ -61,7 +67,7 @@ function Sidebar({setShowSideBar ,showSidebar}) {
                   <img className="w-7" src={logoutImg} alt="" />
                 </span>
                 <span className="ml-2">Logout</span>
-              </NavLink>
+              </Link>
             </li>
           </ul>
         </nav>

@@ -1,6 +1,14 @@
 import { Link, NavLink } from "react-router-dom";
 import sidebarImg from "../assets/sidebar.png";
+import { useDispatch } from "react-redux";
+import { logout } from "../redux/action/auth.action";
 function Header({showSidebar, setShowSideBar}) {
+
+  const dispatch = useDispatch()
+  
+  function logoutHandler(){
+    dispatch(logout());
+  }
   const sidebarToggler = () => {
     showSidebar? setShowSideBar(false):setShowSideBar(true);
    
@@ -49,9 +57,9 @@ function Header({showSidebar, setShowSideBar}) {
                 </NavLink>
               </li>
               <li className="nav-item">
-                <NavLink className="nav-link relative" to={'/register'}>
+                <Link className="nav-link relative" onClick={logoutHandler}>
                   Logout
-                </NavLink>
+                </Link>
               </li>
             </ul>
           

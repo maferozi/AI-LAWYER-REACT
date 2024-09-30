@@ -9,6 +9,7 @@ import {
   REGISTER_REQUEST,
   REGISTER_SUCCESS,
   REGISTER_FAILURE,
+  CLEAR_MESSAGES,
 } from "../constants/auth.constant";
 
 const initialState = {
@@ -49,10 +50,13 @@ const authReducer = (state = initialState, action) => {
         success: null,
       };
     case LOGOUT:
+      localStorage.removeItem('token');
       return {
         ...state,
         user: null,
         token: null,
+        success:'User logout sucessFully',
+        error:null,
       };
     case ME_REQUEST:
       return {
@@ -68,7 +72,7 @@ const authReducer = (state = initialState, action) => {
         meLoading: false,
         token:action.payload.token,
         user: action.payload.user,
-        success: action.payload.success,
+        success: "User logged in Successfullly",
         error: null,
       };
     case ME_FAILURE:
@@ -79,7 +83,7 @@ const authReducer = (state = initialState, action) => {
         token: null,
         user: null,
         success: null,
-        error: action.payload.message,
+        error: action.payload,
       };
 
     case REGISTER_REQUEST:
@@ -99,8 +103,14 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        success: false,
+        success: null,
         error: action.payload,
+      };
+      case CLEAR_MESSAGES:
+      return {
+        ...state,
+        success: null,
+        error: null,
       };
 
     default:

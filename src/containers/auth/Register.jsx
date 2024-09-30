@@ -3,6 +3,7 @@ import * as Yup from "yup";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginRequest, registerRequest } from "../../redux/action/auth.action";
+import Swal from "sweetalert2";
 
 
 export default function Register(){
@@ -48,24 +49,23 @@ export default function Register(){
           <h2 className="text-2xl font-bold">Create Account</h2>
           <p className="font-thin text-[0.7rem]">Register to solve your query</p>
           </div>
-          {success && (
+          {/* {success && (
             <div
               className="text-white bg-green-600 w-auto p-2 h-10 rounded-lg"
-              role="alert"
-              data-cy="login-error-message"
+              data-cy="login-success-message"
             >
               {success}
             </div>
-          )} 
+          )}  */}
           {/* {error && error.message && (
             <div
-              className="alert alert-danger"
-              role="alert"
-              data-cy="login-error-message"
-            >
+            className="text-red-950 font-semibold shadow-lg shadow-red-500 bg-red-100 w-auto p-2 h-10 rounded-lg"            
+            data-cy="login-error-message"
+          >
               {error.message}
             </div>
-          )} */}
+          )}  */}
+          
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}

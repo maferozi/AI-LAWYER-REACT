@@ -9,6 +9,7 @@ import {
     ME_REQUEST,
     ME_SUCCESS,
     ME_FAILURE,
+    CLEAR_MESSAGES,
   } from "../constants/auth.constant";
   
   export const meRequest = () => ({
@@ -58,6 +59,10 @@ import {
   export const registerFailure = (error) => ({
     type: REGISTER_FAILURE,
     payload: error,
+  });
+
+  export const clearMesage = () => ({
+    type: CLEAR_MESSAGES,
   });
   
  

@@ -20,8 +20,8 @@ function* getLoginRequest(action){
         yield put(loginSuccess(response));
         
     } catch (error) {
-        console.log(error);
-        yield put(loginFailure(error));
+        console.log(error.response.data);
+        yield put(loginFailure(error.response.data));
     }
 
     
@@ -34,20 +34,18 @@ function *getRegisterRequest(action){
         yield put(registerSuccess(response));
         
     } catch (error) {
-        console.log(error);
-        yield put(registerFailure(error));
+        console.log(error.response.data);
+        yield put(registerFailure(error.response.data));
     }
 
 }
 function *getMeRequest(){
     try {
         const response = yield call(meApi);
-        console.log(response);
         yield put(meSuccess(response));
         
     } catch (error) {
-        console.log(error);
-        yield put(meFailure(error));
+        yield put(meFailure(error.response.data));
     }
 }
 

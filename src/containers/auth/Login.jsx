@@ -30,25 +30,25 @@ export default function Login() {
           Quick & Simple way to find your answer
         </p>
       </div>
-      
+{/*       
       {success && (
             <div
               className="text-white bg-green-600 w-auto p-2 h-10 rounded-lg"
               role="alert"
-              data-cy="login-error-message"
+              data-cy="login-success-message"
             >
               {success}
             </div>
           )} 
-      {/* {error && error.message && (
-            <div
-              className="alert alert-danger"
-              role="alert"
-              data-cy="login-error-message"
-            >
+      {error && error.message && (
+             <div
+             className="text-white bg-red-600 w-auto p-2 h-10 rounded-lg"
+             role="alert"
+             data-cy="login-error-message"
+           >
               {error.message}
             </div>
-          )} */}
+          )}  */}
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
