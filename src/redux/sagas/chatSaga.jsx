@@ -9,10 +9,10 @@ import { globalNavigate } from "../../App";
 
 function* getChatRequest(action) {
   try {
-    action.payload = { ...action.payload, type: "prompt", topK: 1};
+    action.payload = { ...action.payload, type: "prompt"};
     let response = yield call(queryChatApi, action.payload);
     const res = {
-      message: [{text: response.text[0], type: response.type }],
+      message: [{text: response.text, type: response.type }],
       chatId: response.chatId,
       chatTitle: response.chatTitle,
     };

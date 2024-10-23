@@ -4,10 +4,11 @@ import ChatMessage from "../components/ChatMessage";
 import { chatRequest } from "../redux/action/chat.action";
 import { useRef } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
+import Skeleton from "react-loading-skeleton";
 
 export default function Chat() {
   const dispatch = useDispatch();
-  const {message, chat, currentChatId} = useSelector(state=> state.chat)
+  const {message, chat, currentChatId , messageLoading} = useSelector(state=> state.chat)
 
   const {chatId} = useParams()
 
@@ -20,10 +21,11 @@ export default function Chat() {
   
   return (
     <div className="overflow-hidden grow flex flex-col items-center pt-5 pl-5 pr-5 gap-5">
-      {chatId != null ? <div className="w-11/12 h-[70vh] pt-5 pb-5 grow overflow-y-auto rounded-3xl flex flex-col gap-1 bg-gradient-to-tl from-white  from-20% via-teal-100 via-30% to-white to-80%">
+      {chatId != null ? <div className="w-11/12 h-[70vh] p-16 grow overflow-y-auto rounded-3xl flex flex-col gap-1 bg-gradient-to-tl from-white  from-20% via-teal-100 via-30% to-white to-80%">
         {  message.map((item, index) => (
           <ChatMessage key={index} text={item.text} type={item.type} />
         ))}
+        {messageLoading && <Skeleton count={2} height={40}/>}
       </div> :
       <div className="w-11/12 h-[70vh] pt-5 pb-5 text-7xl font-bold text-white grow overflow-y-auto rounded-3xl flex justify-center items-center gap-1 bg-gradient-to-tl from-white  from-20% via-teal-300 via-30% to-white to-80%">
       Welcome! New Chat

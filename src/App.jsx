@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import "simplebar-react/dist/simplebar.min.css"
+import "simplebar-react/dist/simplebar.min.css";
+import "react-loading-skeleton/dist/skeleton.css";
+
 import { Route, Routes, useNavigate } from "react-router-dom";
 import AuthLayout from "./components/AuthLayout";
 import Login from "./containers/auth/login";
@@ -12,11 +14,13 @@ import UnauthorizedRoute from "./components/UnautherizedRoute";
 import PrivateRoute from "./components/PrivateRoute";
 import Swal from "sweetalert2";
 import Chat from "./containers/Chat";
+import { SkeletonTheme } from "react-loading-skeleton";
+import { ClimbingBoxLoader } from "react-spinners";
 
 export let globalNavigate;
 
 function App() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     globalNavigate = navigate;
@@ -28,8 +32,9 @@ function App() {
     dispatch(meRequest());
   }, []);
 
-
-  const { error, meLoading, loading, success } = useSelector((state) => state.auth);
+  const { error, meLoading, loading, success } = useSelector(
+    (state) => state.auth
+  );
   if (error && error.message) {
     Swal.fire({
       icon: "error",
@@ -53,21 +58,35 @@ function App() {
   }, [error, success]);
 
   return (
-    <>
-      <Routes>
-        <Route element={<UnauthorizedRoute />}>
-          <Route path="/" element={<AuthLayout />}>
-            <Route path="login" element={<Login />} />
-            <Route path="register" element={<Register />} />
+    <SkeletonTheme>
+      {meLoading ? (
+        <div className="flex h-[100vh] w-full justify-center items-center">
+          <ClimbingBoxLoader
+            color="#000000"
+            loading
+            size={50}
+            speedMultiplier={2}
+            aria-label="Loading..."
+          />
+        </div>
+      ) : (
+        <Routes>
+          <Route element={<UnauthorizedRoute />}>
+            <Route path="/" element={<AuthLayout />}>
+              <Route path="login" element={<Login />} />
+              <Route path="register" element={<Register />} />
+            </Route>
           </Route>
-        </Route>
-        {!meLoading && <Route element={<PrivateRoute />}>
-          <Route path="/" element={<AppLayout />}>
-            <Route path="chat/:chatId?" element={<Chat />} />
-          </Route>
-        </Route>}
-      </Routes>
-    </>
+          {!meLoading && (
+            <Route element={<PrivateRoute />}>
+              <Route path="/" element={<AppLayout />}>
+                <Route path="chat/:chatId?" element={<Chat />} />
+              </Route>
+            </Route>
+          )}
+        </Routes>
+      )}
+    </SkeletonTheme>
   );
 }
 

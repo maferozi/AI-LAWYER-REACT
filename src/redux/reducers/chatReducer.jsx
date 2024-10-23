@@ -17,6 +17,7 @@ const initialState = {
   chat: [],
   message: [],
   loading: false,
+  messageLoading: true,
   error: null,
   success: null,
 };
@@ -26,7 +27,7 @@ const chatReducer = (state = initialState, action) => {
     case CHAT_REQUEST:
       return {
         ...state,
-        loading: true,
+        messageLoading: true,
         success: null,
         message: [
           ...state.message,
@@ -38,7 +39,7 @@ const chatReducer = (state = initialState, action) => {
       return {
         ...state,
         currentChatId: action.payload.chatId,
-        loading: false,
+        messageLoading: false,
         success: "Message retrive successfully",
         message: [...state.message, ...action.payload.message],
         error: null,
@@ -47,7 +48,7 @@ const chatReducer = (state = initialState, action) => {
     case CHAT_FAILURE:
       return {
         ...state,
-        loading: false,
+        messageLoading: false,
         error: action.payload,
         success: null,
       };
@@ -67,6 +68,7 @@ const chatReducer = (state = initialState, action) => {
         success: "ALL Chats retrive successfully",
         chat: action.payload.data,
         error: null,
+        messageLoading:false,
       };
     }
     case ALL_CHAT_FAILURE:
@@ -75,6 +77,7 @@ const chatReducer = (state = initialState, action) => {
         loading: false,
         error: action.payload,
         success: null,
+        messageLoading:false,
       };
 
     case FETCH_CHAT_REQUEST:
@@ -114,6 +117,8 @@ const chatReducer = (state = initialState, action) => {
         ...state,
         chat: [...chat, {chatTitle: action.payload.chatTitle, chatId: action.payload.chatId}],
         currentChatId: action.payload.chatId,
+        loading: false,
+        messageLoading: false,
       }
     }
     default:

@@ -4,8 +4,8 @@ export default function ChatMessage({
 }) {
   const classListContainer =
     type === "response"
-      ? "bg-gray-500 self-end mr-16"
-      : "bg-gray-700 self-start ml-16";
+      ? "bg-gray-500 self-end"
+      : "bg-gray-700 self-start";
   const classListChild = type === "response" ? "text-gray-200" : "text-white";
   return (
     <>

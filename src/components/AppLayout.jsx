@@ -24,7 +24,7 @@ const dispatch = useDispatch()
    }
      ,[chatId])
 
-const [showSidebar, setShowSideBar] = useState(false)
+const [showSidebar, setShowSideBar] = useState(true)
   return (
     <div id="main-wrapper " className={"flex  " + `${showSidebar? '':''}`}>
         <div id='sidebar-wrapper' className={`w-full ${showSidebar === false? 'max-w-[7vw]':'max-w-[25vw]'} `}>

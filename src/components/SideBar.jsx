@@ -8,10 +8,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../redux/action/auth.action";
 import ChatTitle from "./ChatTitle";
 import { newChat } from "../redux/action/chat.action";
+import Skeleton from "react-loading-skeleton";
 
 function Sidebar({ setShowSideBar, showSidebar }) {
   const dispatch = useDispatch();
-  const { chat } = useSelector((state) => state.chat);
+  const { chat, loading } = useSelector((state) => state.chat);
   const navigate = useNavigate();
   function logoutHandler() {
     dispatch(logout());
@@ -57,7 +58,8 @@ function Sidebar({ setShowSideBar, showSidebar }) {
         }}
         autoHide={false}
       >
-        {chat &&
+        
+        { loading ? <div className="flex flex-col p-3"><Skeleton count={5}   height={40}/></div> : 
           chat
             .slice()
             .reverse()
