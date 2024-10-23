@@ -6,7 +6,6 @@ export function meApi() {
   return axiosInstance.get(`${BASE_URL}/auth/me`).then((res) => res.data);
 }
 export function LoginApi(payload) {
-  console.log(payload)
   return axios
     .post(`${BASE_URL}/auth/login`, payload)
     .then((res) => res.data);

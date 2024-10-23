@@ -29,7 +29,7 @@ function LayoutScroll({ children, getData }) {
   }, [scrollBarRef, handleScroll]);
   return (
     <SimpleBar
-      style={{ maxHeight: "98vh", overflowX: "hidden", maxWidth:"90vw" }}
+      style={{ maxHeight: "88vh", overflowX: "hidden", maxWidth:"90vw" }}
       autoHide={false}
       ref={scrollBarRef}
     >

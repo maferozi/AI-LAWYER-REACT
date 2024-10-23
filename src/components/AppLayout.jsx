@@ -1,35 +1,40 @@
-import { Outlet } from "react-router";
+import { Outlet, useParams } from "react-router";
 import Sidebar from "./SideBar"
 import Header from "./Header";
-// import { logout } from "@redux/actions/auth.actions";
 import LayoutScroll from "./LayoutScroll";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { allChatRequest, fetchChatRequest } from "../redux/action/chat.action";
+import { useSearchParams } from "react-router-dom";
 
 function AppLayout() {
-//   const user = useSelector(selectCurrentUser);
+  const{chat, currentChatId}=useSelector(state=>state.chat)
 
-//   const dispatch = useDispatch();
-//   const handleLogout = () => {
-    // dispatch(logout());
-//   ;
-//   const childComponentProps = {
-    // user,
-    // handleLogout,
-//   };
+  const {chatId} = useParams()
+const dispatch = useDispatch()
+  useEffect(()=>{
+    dispatch(allChatRequest())
+  }
+  ,[])
+  useEffect(()=>{
+    // if(currentChatId != -99)
+        // dispatch(fetchChatRequest({chatId: currentChatId}))
+    if(chatId)
+        dispatch(fetchChatRequest({chatId: chatId}))
+   }
+     ,[chatId])
+
 const [showSidebar, setShowSideBar] = useState(false)
   return (
-    <div id="main-wrapper" className={`relative ${showSidebar? '':''}`}>
-      <aside  className="relative  with-vertical">
-        <div id='sidebar-wrapper' className={` ${showSidebar === false? 'left-sidebar':'show-sidebar'} `}>
+    <div id="main-wrapper " className={"flex  " + `${showSidebar? '':''}`}>
+        <div id='sidebar-wrapper' className={`w-full ${showSidebar === false? 'max-w-[7vw]':'max-w-[25vw]'} `}>
           <Sidebar showSidebar={showSidebar} setShowSideBar={setShowSideBar}/>
         </div>
-      </aside>
-      <div className="absolute w-[100vw]  top-3 flex flex-col">
-        <Header showSidebar={showSidebar} setShowSideBar={setShowSideBar} />  
-
-       <LayoutScroll>
-          <Outlet />
-        </LayoutScroll>
+      <div className="w-full  flex flex-col justify-between pb-5">
+        <Header showSidebar={showSidebar} setShowSideBar={setShowSideBar} />
+        
+        <Outlet />
+        
       </div>
     </div>
   );

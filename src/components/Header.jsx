@@ -1,4 +1,5 @@
 import { Link, NavLink } from "react-router-dom";
+import logoutImg from "../assets/logout.png";
 import sidebarImg from "../assets/sidebar.png";
 import { useDispatch } from "react-redux";
 import { logout } from "../redux/action/auth.action";
@@ -28,44 +29,39 @@ function Header({showSidebar, setShowSideBar}) {
   };
 
   return (
-    <header className="relative flex flex-row w-[100%] ">
-        <nav className=" flex flex-row w-full justify-end items-center px-[5vw]">
+    
+        <nav className=" flex flex-row w-full bg-gradient-to-l from-gray-300 to-white justify-end items-center pl-5 pr-5 pt-5 pb-3">
         
               {!showSidebar && <NavLink
                 onClick={sidebarToggler}
-                className="nav-link sidebartoggler ps-[4vw]"
+                className="nav-link sidebartoggler"
                 id="headerCollapse"
               >
-                <img className="w-10" src={sidebarImg} alt="" />
+                <img className="p-0 w-10 bg-transparent" src={sidebarImg} alt="" />
               </NavLink>}
             
 
             <ul className="flex items-center justify-end space-x-4 w-full">
+              
+             
+             
               <li className="nav-item">
-                <NavLink className="nav-link relative">
-                  Report Analysis
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink className="nav-link relative">
-                  Query
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink className="nav-link relative">
-                  Generate Report
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link relative" onClick={logoutHandler}>
-                  Logout
-                </Link>
+              <Link
+                onClick={logoutHandler}
+                className="flex flex-col items-center justify-center"
+                aria-expanded="false"
+              >
+                <span>
+                  <img className="w-7" src={logoutImg} alt="" />
+                </span>
+                <span className="ml-2">Logout</span>
+              </Link>
               </li>
             </ul>
           
         </nav>
       
-    </header>
+    
   );
 }
 
